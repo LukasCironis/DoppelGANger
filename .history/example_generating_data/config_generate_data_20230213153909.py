@@ -1,10 +1,11 @@
-import os
-
 config = {
     "scheduler_config": {
         "gpu": ["0"],
         "config_string_value_maxlen": 1000,
-        "result_root_folder": os.path.join("..", "results")
+        "result_root_folder": "../results/",
+        "scheduler_log_file_path": "scheduler_generate_data.log",
+        "log_file": "worker_generate_data.log",
+        "force_rerun": True
     },
 
     "global_config": {
@@ -32,6 +33,9 @@ config = {
         "g_attr_d_coe": 1.0,
         "attr_disc_num_layers": 5,
         "attr_disc_num_units": 200,
+
+        "generate_num_train_sample": 50000,
+        "generate_num_test_sample": 50000
     },
 
     "test_config": [

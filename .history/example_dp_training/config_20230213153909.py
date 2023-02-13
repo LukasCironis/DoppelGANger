@@ -1,10 +1,8 @@
-import os
-
 config = {
     "scheduler_config": {
         "gpu": ["0"],
         "config_string_value_maxlen": 1000,
-        "result_root_folder": os.path.join("..", "results")
+        "result_root_folder": "../results/"
     },
 
     "global_config": {
@@ -36,34 +34,16 @@ config = {
 
     "test_config": [
         {
-            "dataset": ["google"],
-            "epoch": [400],
-            "run": [0, 1, 2],
-            "sample_len": [1, 5, 10],
-            "extra_checkpoint_freq": [5],
-            "epoch_checkpoint_freq": [1],
-            "aux_disc": [False],
-            "self_norm": [False]
-        },
-        {
             "dataset": ["web"],
-            "epoch": [400],
-            "run": [0, 1, 2],
-            "sample_len": [1, 5, 10, 25, 50],
+            "epoch": [15],
+            "run": [0],
+            "sample_len": [10],
             "extra_checkpoint_freq": [5],
             "epoch_checkpoint_freq": [1],
             "aux_disc": [True],
-            "self_norm": [True]
-        },
-        {
-            "dataset": ["FCC_MBA"],
-            "epoch": [17000],
-            "run": [0, 1, 2],
-            "sample_len": [1, 4, 8],
-            "extra_checkpoint_freq": [850],
-            "epoch_checkpoint_freq": [70],
-            "aux_disc": [False],
-            "self_norm": [False]
+            "self_norm": [True],
+            "dp_noise_multiplier": [0.01, 0.1, 1.0, 2.0, 4.0],
+            "dp_l2_norm_clip": [1.0]
         }
     ]
 }

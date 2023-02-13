@@ -1,10 +1,8 @@
-import os
-
 config = {
     "scheduler_config": {
         "gpu": ["0"],
         "config_string_value_maxlen": 1000,
-        "result_root_folder": os.path.join("..", "results")
+        "result_root_folder": "../results/"
     },
 
     "global_config": {
