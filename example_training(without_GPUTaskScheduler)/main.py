@@ -11,6 +11,12 @@ from gan.network import DoppelGANgerGenerator, Discriminator, AttrDiscriminator
 import os
 import tensorflow as tf
 
+try:
+    os.chdir("./example_training(without_GPUTaskScheduler)/")
+except Exception as e:
+    print(e)
+
+print("Current dir:", os.getcwd())
 
 if __name__ == "__main__":
     sample_len = 10
@@ -19,6 +25,14 @@ if __name__ == "__main__":
      data_gen_flag,
      data_feature_outputs, data_attribute_outputs) = \
         load_data(os.path.join("..", "data", "web"))
+    print(data_feature.shape)
+    print(data_attribute.shape)
+    print(data_gen_flag.shape)
+    
+    data_feature = data_feature[:2000,::] 
+    data_attribute = data_attribute[:2000,::]
+    data_gen_flag = data_gen_flag[:2000,::]
+    
     print(data_feature.shape)
     print(data_attribute.shape)
     print(data_gen_flag.shape)
@@ -55,8 +69,8 @@ if __name__ == "__main__":
     if not os.path.exists(sample_dir):
         os.makedirs(sample_dir)
     time_path = os.path.join("..", "test", "time.txt")
-    epoch = 400
-    batch_size = 100
+    epoch = 3 #10
+    batch_size = 256 #100
     vis_freq = 200
     vis_num_sample = 5
     d_rounds = 1
@@ -67,8 +81,8 @@ if __name__ == "__main__":
     extra_checkpoint_freq = 5
     num_packing = 1
 
-    run_config = tf.ConfigProto()
-    with tf.Session(config=run_config) as sess:
+    run_config = tf.compat.v1.ConfigProto()
+    with tf.compat.v1.Session(config=run_config) as sess:
         gan = DoppelGANger(
             sess=sess,
             checkpoint_dir=checkpoint_dir,

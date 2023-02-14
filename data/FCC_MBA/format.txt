@@ -1,0 +1,19 @@
+The measurements are the following in order:
+
+traffic byte counter
+
+ping loss rate
+
+The metadata is the following in order (with the corresponding meaning of each value in order)
+
+* ISP
+
+['Windstream', 'AT&T', 'CenturyLink', 'Verizon ', 'Comcast', 'Cincinnati Bell ', 'Optimum', 'Hughes', 'Cox', 'Mediacom', 'Hawaiian Telcom', 'Wildblue/ViaSat', 'Charter', 'Frontier ', 'Verizon']
+
+* Technology 
+
+['Fiber', 'DSL', 'IPBB', 'Satellite', 'Cable']
+
+* State
+
+['NV', 'LA', 'FL', 'RI', 'NM', 'GA', 'NE', 'WI', 'SD', 'OH', 'NH', 'CO', 'NJ', 'IN', 'AZ', 'PA', 'KY', 'OR', 'MN', 'IL', 'MD', 'MT', 'MS', 'OK', 'WV', 'ME', 'NY', 'MA', 'VT', 'MI', 'Ia', 'nv', 'AR', 'MO', 'SC', 'DE', 'DC', 'IA', 'TN', 'ID', 'Al', 'CA', 'VA', 'AL', 'CT', 'TX', 'WY', 'WA', 'KS', 'sc', 'NC', 'UT', 'HI']

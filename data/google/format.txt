@@ -1,0 +1,13 @@
+The measurements are the following in order:
+
+CPU_rate
+canonical_memory_usage
+assigned_memory_usage
+unmapped_page_cache
+total_page_cache
+maximum_memory_usage
+local_disk_space_usage
+maximum_CPU_rate
+sampled_CPU_usage
+
+The metadata is end_event_type, where the four choices correspond to EVICT, FAIL, FINISH, KILL in order.

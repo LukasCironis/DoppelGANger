@@ -1,0 +1,17 @@
+The measurement is:
+
+daily page views
+
+The metadata is the following in order (with the corresponding meaning of each value in order)
+
+* Domain
+
+['commons.wikimedia.org', 'de.wikipedia.org', 'en.wikipedia.org', 'es.wikipedia.org', 'fr.wikipedia.org', 'ja.wikipedia.org', 'ru.wikipedia.org', 'www.mediawiki.org', 'zh.wikipedia.org']
+
+* Access type
+
+['all-access', 'desktop', 'mobile-web']
+
+* Agent 
+
+['all-agents', 'spider']
