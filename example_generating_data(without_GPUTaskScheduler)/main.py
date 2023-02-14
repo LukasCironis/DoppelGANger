@@ -12,6 +12,12 @@ import os
 import tensorflow as tf
 import numpy as np
 
+try:
+    os.chdir("./example_training(without_GPUTaskScheduler)/")
+except Exception as e:
+    print(e)
+
+print("Current dir:", os.getcwd())
 
 if __name__ == "__main__":
     sample_len = 10
@@ -24,6 +30,14 @@ if __name__ == "__main__":
     print(data_attribute.shape)
     print(data_gen_flag.shape)
     num_real_attribute = len(data_attribute_outputs)
+
+    data_feature = data_feature[:2000,::] 
+    data_attribute = data_attribute[:2000,::]
+    data_gen_flag = data_gen_flag[:2000,::]
+    
+    print(data_feature.shape)
+    print(data_attribute.shape)
+    print(data_gen_flag.shape)
 
     (data_feature, data_attribute, data_attribute_outputs,
      real_attribute_mask) = \
@@ -57,8 +71,8 @@ if __name__ == "__main__":
     if not os.path.exists(sample_dir):
         os.makedirs(sample_dir)
     time_path = os.path.join("..", "test", "time.txt")
-    epoch = 400
-    batch_size = 100
+    epoch = 3#400
+    batch_size = 256#100
     vis_freq = 200
     vis_num_sample = 5
     d_rounds = 1
