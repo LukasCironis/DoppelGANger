@@ -19,23 +19,23 @@ except Exception as e:
 print("Current dir:", os.getcwd())
 
 if __name__ == "__main__":
-    sample_len = 10
+    sample_len = 50#97
 
     (data_feature, data_attribute,
      data_gen_flag,
      data_feature_outputs, data_attribute_outputs) = \
-        load_data(os.path.join("..", "data", "web"))
+        load_data(os.path.join("..", "data", "time_series_test")) #creditcard
     print(data_feature.shape)
     print(data_attribute.shape)
     print(data_gen_flag.shape)
     
-    data_feature = data_feature[:2000,::] 
-    data_attribute = data_attribute[:2000,::]
-    data_gen_flag = data_gen_flag[:2000,::]
+    # data_feature = data_feature[:2000,::] 
+    # data_attribute = data_attribute[:2000,::]
+    # data_gen_flag = data_gen_flag[:2000,::]
     
-    print(data_feature.shape)
-    print(data_attribute.shape)
-    print(data_gen_flag.shape)
+    # print(data_feature.shape)
+    # print(data_attribute.shape)
+    # print(data_gen_flag.shape)
 
     (data_feature, data_attribute, data_attribute_outputs,
      real_attribute_mask) = \
@@ -69,16 +69,16 @@ if __name__ == "__main__":
     if not os.path.exists(sample_dir):
         os.makedirs(sample_dir)
     time_path = os.path.join("..", "test", "time.txt")
-    epoch = 3 #10
-    batch_size = 256 #100
-    vis_freq = 200
-    vis_num_sample = 5
+    epoch = 5000 #10
+    batch_size = 16 #100
+    vis_freq = 5000
+    vis_num_sample = 3
     d_rounds = 1
     g_rounds = 1
     d_gp_coe = 10.0
     attr_d_gp_coe = 10.0
     g_attr_d_coe = 1.0
-    extra_checkpoint_freq = 5
+    extra_checkpoint_freq = 1000
     num_packing = 1
 
     run_config = tf.compat.v1.ConfigProto()
