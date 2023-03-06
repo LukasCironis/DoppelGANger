@@ -19,7 +19,7 @@ except Exception as e:
 print("Current dir:", os.getcwd())
 
 if __name__ == "__main__":
-    sample_len = 50#97
+    sample_len = 100#97
 
     (data_feature, data_attribute,
      data_gen_flag,
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     if not os.path.exists(sample_dir):
         os.makedirs(sample_dir)
     time_path = os.path.join("..", "test", "time.txt")
-    epoch = 5000 #10
+    epoch = 3 #10
     batch_size = 16 #100
     vis_freq = 5000
     vis_num_sample = 3

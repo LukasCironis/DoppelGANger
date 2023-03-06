@@ -39,8 +39,6 @@ df_features.loc[:,"tss"] = df_features.loc[:,"tss"].astype(np.float32)
 with open("tss_scaler.pkl", "wb") as file:
     pickle.dump(tss_scaler, file, protocol=pickle.HIGHEST_PROTOCOL)
 
-
-
 features_npy = df_features.values
 data_gen_flag_npy = np.ones(features_npy.shape, dtype=np.float32)
 
@@ -77,7 +75,7 @@ data_feature_output = [
 ]
 	
 data_attribute_output = [
-	Output(type_=OutputType.DISCRETE, dim=4, normalization=None, is_gen_flag=False)
+	Output(type_=OutputType.DISCRETE, dim=5, normalization=None, is_gen_flag=False)
 ]
 
 with open('data_feature_output.pkl', 'wb') as f:
