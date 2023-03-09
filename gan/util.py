@@ -136,6 +136,19 @@ def renormalize_per_sample(data_feature, data_attribute, data_feature_outputs,
 
 def normalize_per_sample(data_feature, data_attribute, data_feature_outputs,
                          data_attribute_outputs, eps=1e-4):
+    """_summary_
+
+    Args:
+        arg1 (_type_): _description_
+        arg2 (_type_): _description_
+        arg3 (_type_): _description_
+        arg4 (_type_): _description_
+        arg5 (_type_, optional): _description_. Defaults to optional.
+
+    Returns:
+        _type_: _description_
+    """    
+    
     # assume all samples have maximum length
     data_feature_min = np.amin(data_feature, axis=1)
     data_feature_max = np.amax(data_feature, axis=1)
