@@ -132,3 +132,10 @@ if __name__ == "__main__":
         data_attribute = atribute_np.astype(np.float32),
         data_gen_flag = data_gen_flag.astype(np.float32)
         )
+    
+    #visualize
+    for i in range(6,10):
+        plt.plot(features_np[i][:,0], features_np[i][:,1])
+    
+    plt.show()
+    
