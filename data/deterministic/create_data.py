@@ -12,9 +12,9 @@ def trig(type, freq, amp=1,
     by = (xmax - xmin)/n
     x = np.arange(xmin, xmax, by)
     if type == "sin":
-        y = amp*np.sin(x*freq + shift)
+        y = amp*np.sin(x*freq)
     elif type == "cos":
-        y = amp*np.cos(x*freq + shift)
+        y = amp*np.cos(x*freq)
     else:
         raise NotImplementedError("'type' is only sin or cos")
     
@@ -22,7 +22,7 @@ def trig(type, freq, amp=1,
     df.loc[:,"type"] = type
     df.loc[:,"freq"] = freq
     # df.loc[:,"shift"] = shift
-    # df.loc[:,"xmin"] = x[5]
+    df.loc[:,"xmin"] = x[5]
     
     df.loc[:,"ylag1"] = y[4]
     df.loc[:,"ylag2"] = y[3]
@@ -81,13 +81,13 @@ if __name__ == "__main__":
         #normalize        
         freq = (freq - FREQ_MIN)/(FREQ_MAX - FREQ_MIN)
         #shift = (shift - SHIFT_MIN)/(SHIFT_MAX - SHIFT_MIN)
-        #xmin = 2*(xmin - X_MIN)/(X_MINMAX - X_MIN) - 1
+        xmin = 2*(xmin - X_MIN)/(X_MINMAX - X_MIN) - 1
         #xmax = 2*(xmax - X_MIN)/(X_MINMAX - X_MIN) - 1
 
         #tmp.loc[:, "x"] = 2*(tmp.loc[:, "x"]-X_MIN)/(X_MAX-X_MIN) - 1
         tmp.loc[:, "freq"] = freq
         #tmp.loc[:, "shift"] = shift
-        #tmp.loc[:, "xmin"] = xmin
+        tmp.loc[:, "xmin"] = xmin
 
         #tmp.iloc[:,-5:] = 2*(tmp.iloc[:,-5:]-X_MIN)/(X_MAX-X_MIN) - 1
         
@@ -97,7 +97,7 @@ if __name__ == "__main__":
             1 if type=="sin" else 0, 
             freq, 
             #shift, 
-            #xmin, 
+            xmin, 
             ] + list(tmp.iloc[0,-5:]))
         
         feature_list.append(tmp[["y"]].values)
@@ -127,6 +127,7 @@ if __name__ == "__main__":
     data_attribute_output = [
         Output(type_=OutputType.DISCRETE, dim=2, normalization=None, is_gen_flag=False),
         Output(type_=OutputType.CONTINUOUS, dim=1, normalization=Normalization.ZERO_ONE, is_gen_flag=False),
+        Output(type_=OutputType.CONTINUOUS, dim=1, normalization=Normalization.MINUSONE_ONE, is_gen_flag=False),
         Output(type_=OutputType.CONTINUOUS, dim=5, normalization=Normalization.MINUSONE_ONE, is_gen_flag=False),
         #Output(type_=OutputType.CONTINUOUS, dim=1, normalization=Normalization.MINUSONE_ONE, is_gen_flag=False),
         #Output(type_=OutputType.CONTINUOUS, dim=1, normalization=Normalization.MINUSONE_ONE, is_gen_flag=False),
