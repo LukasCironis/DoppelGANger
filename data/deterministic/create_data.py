@@ -9,8 +9,7 @@ def trig(type, freq, amp=1,
          n=1005, xmin=-500):
     
     xmax = xmin + 2
-    by = (xmax - xmin)/n
-    x = np.arange(xmin, xmax, by)
+    x = np.linspace(xmin, xmax, num=n, endpoint=True)
     if type == "sin":
         y = amp*np.sin(x*freq)
     elif type == "cos":
@@ -18,26 +17,20 @@ def trig(type, freq, amp=1,
     else:
         raise NotImplementedError("'type' is only sin or cos")
     
-    df=pd.DataFrame(np.array([y[5:]]).T, columns=["y"])
+    df=pd.DataFrame(np.array([y]).T, columns=["y"])
     df.loc[:,"type"] = type
     df.loc[:,"freq"] = freq
     # df.loc[:,"shift"] = shift
-    df.loc[:,"xmin"] = x[5]
+    df.loc[:,"xmin"] = x[0]
     
-    df.loc[:,"ylag1"] = y[4]
-    df.loc[:,"ylag2"] = y[3]
-    df.loc[:,"ylag3"] = y[2]
-    df.loc[:,"ylag4"] = y[1]
-    df.loc[:,"ylag5"] = y[0]
+    df.loc[:,"y0"] = y[0]
+    df.loc[:,"y1"] = y[1]
+    df.loc[:,"y2"] = y[2]
+    df.loc[:,"y3"] = y[3]
+    df.loc[:,"y4"] = y[4]
     
-    # df.loc[:,"xlag1"] = x[4]
-    # df.loc[:,"xlag2"] = x[3]
-    # df.loc[:,"xlag3"] = x[2]
-    # df.loc[:,"xlag4"] = x[1]
-    # df.loc[:,"xlag5"] = x[0]
-
     return df
-    
+
     
 if __name__ == "__main__":
     
@@ -50,7 +43,7 @@ if __name__ == "__main__":
             "freq" : [0.5, 1, 2, 5][i],
             "amp"  : 1,  
             "xmin": -5, 
-            "n" : 105
+            "n" : 100
         }
         
         df_test = trig(**pars)
@@ -73,34 +66,35 @@ if __name__ == "__main__":
     for _ in range(100):
         type = np.random.choice(["cos", "sin"])
         freq = 6*np.random.random_sample(1)[0]
+        freq_n = (freq - FREQ_MIN)/(FREQ_MAX - FREQ_MIN)
+
         #shift = 7*np.random.random_sample(1)[0]
-        xmin = np.random.uniform(X_MIN, X_MINMAX)
-        xmax = xmin + 2
-        tmp = trig(type, freq, xmin=xmin, n=100+5)
-        
-        #normalize        
-        freq = (freq - FREQ_MIN)/(FREQ_MAX - FREQ_MIN)
-        #shift = (shift - SHIFT_MIN)/(SHIFT_MAX - SHIFT_MIN)
-        xmin = 2*(xmin - X_MIN)/(X_MINMAX - X_MIN) - 1
-        #xmax = 2*(xmax - X_MIN)/(X_MINMAX - X_MIN) - 1
+        for _ in range(10):
+            xmin = np.random.uniform(X_MIN, X_MINMAX)
+            xmax = xmin + 2
+            tmp = trig(type, freq, xmin=xmin, n=100)
+            
+            #normalize        
+            #shift = (shift - SHIFT_MIN)/(SHIFT_MAX - SHIFT_MIN)
+            xmin_n = 2*(xmin - X_MIN)/(X_MINMAX - X_MIN) - 1
+            #xmax = 2*(xmax - X_MIN)/(X_MINMAX - X_MIN) - 1
 
-        #tmp.loc[:, "x"] = 2*(tmp.loc[:, "x"]-X_MIN)/(X_MAX-X_MIN) - 1
-        tmp.loc[:, "freq"] = freq
-        #tmp.loc[:, "shift"] = shift
-        tmp.loc[:, "xmin"] = xmin
+            #tmp.loc[:, "x"] = 2*(tmp.loc[:, "x"]-X_MIN)/(X_MAX-X_MIN) - 1
+            tmp.loc[:, "freq"] = freq_n
+            #tmp.loc[:, "shift"] = shift
+            tmp.loc[:, "xmin"] = xmin_n
 
-        #tmp.iloc[:,-5:] = 2*(tmp.iloc[:,-5:]-X_MIN)/(X_MAX-X_MIN) - 1
-        
-        df_list.append(tmp)
-        atribute_list.append([
-            1 if type=="cos" else 0,
-            1 if type=="sin" else 0, 
-            freq, 
-            #shift, 
-            xmin, 
-            ] + list(tmp.iloc[0,-5:]))
-        
-        feature_list.append(tmp[["y"]].values)
+            #tmp.iloc[:,-5:] = 2*(tmp.iloc[:,-5:]-X_MIN)/(X_MAX-X_MIN) - 1
+            
+            df_list.append(tmp)
+            atribute_list.append([
+                1 if type=="cos" else 0,
+                1 if type=="sin" else 0, 
+                freq_n, 
+                xmin_n, 
+                ] + list(tmp.iloc[0,-5:]))
+            
+            feature_list.append(tmp[["y"]].values)
     
     df = pd.concat(df_list).reset_index(drop=True) 
     df.type.value_counts()

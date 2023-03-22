@@ -20,12 +20,12 @@ except Exception as e:
 print("Current dir:", os.getcwd())
 
 if __name__ == "__main__":
-    sample_len = 50#97
+    sample_len = 5#97
 
     (data_feature, data_attribute,
      data_gen_flag,
      data_feature_outputs, data_attribute_outputs) = \
-        load_data(os.path.join("..", "data", "time_series_test")) #creditcard
+        load_data(os.path.join("..", "data", "deterministic")) #creditcard
     print(data_feature.shape)
     print(data_attribute.shape)
     print(data_gen_flag.shape)
@@ -71,16 +71,16 @@ if __name__ == "__main__":
     if not os.path.exists(sample_dir):
         os.makedirs(sample_dir)
     time_path = os.path.join("..", "test", "time.txt")
-    epoch = 4999#400
-    batch_size = 16#100
-    vis_freq = 200
-    vis_num_sample = 10
+    epoch = 29999#400
+    batch_size = 32#100
+    vis_freq = 5000
+    vis_num_sample = 3
     d_rounds = 1
     g_rounds = 1
     d_gp_coe = 10.0
     attr_d_gp_coe = 10.0
     g_attr_d_coe = 1.0
-    extra_checkpoint_freq = 5
+    extra_checkpoint_freq = 1000
     num_packing = 1
 
     generate_num_train_sample = 10000
